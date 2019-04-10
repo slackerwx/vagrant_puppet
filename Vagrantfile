@@ -10,6 +10,11 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :db do |db_config|
     db_config.vm.network :private_network, :ip => "192.168.33.10"
+
+    db_config.vm.provision :"shell", path: "install_puppet.sh"
+    db_config.vm.provision "puppet" do |puppet|
+    	puppet.manifest_file = "db.pp"
+    end
   end
 
 end
